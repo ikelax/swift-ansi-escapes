@@ -7,11 +7,11 @@ public enum ANSIEscapeCode {
   static let OSC = "\u{001B}]"
   static let BEL = "\u{0007}"
   static let SEP = ";"
-  static let EraseEndLine = ESC + "K"
+  public static let EraseEndLine = ESC + "0K"
   static let EraseStartLine = ESC + "1K"
-  static let EraseLine = ESC + "2K"
+  public static let EraseLine = ESC + "2K"
   static let EraseDown = ESC + "J"
-  static let EraseUp = ESC + "1J"
+  public static let EraseUp = ESC + "1J"
   static let EraseScreen = ESC + "2J"
   static let ScrollUp = ESC + "S"
   static let ScrollDown = ESC + "T"
@@ -27,7 +27,7 @@ public enum ANSIEscapeCode {
   static let EnterAlternativeScreen = ESC + "?1049h"
   static let ExitAlternativeScreen = ESC + "?1049l"
 
-  static let Beep = BEL
+  public static let Beep = BEL
   
   static let ClearScreen = "\u{001B}c"
   
@@ -49,7 +49,7 @@ public func clearTerminal() -> String {
 
 public func moveCursorTo(x: Int, y: Int? = nil) -> String {
   if let y = y {
-    return "\(ANSIEscapeCode.ESC)\(y + 1)\(ANSIEscapeCode.SEP)\(x + 1)H"
+    return "\(ANSIEscapeCode.ESC)\(y)\(ANSIEscapeCode.SEP)\(x)H"
   }
   
   return "\(ANSIEscapeCode.ESC)\(x + 1)G"
@@ -167,7 +167,7 @@ public struct iTermAnnotationOptions {
   
   public func hasX() -> Bool { x != nil }
   
-  init(x: Int? = nil, y: Int? = nil, length: Int? = nil, isHidden: Bool = false) throws {
+  public init(x: Int? = nil, y: Int? = nil, length: Int? = nil, isHidden: Bool = false) throws {
     let hasX = x != nil
     let hasY = y != nil
     

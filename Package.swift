@@ -14,7 +14,23 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "AnsiEscapes"),
+            name: "AnsiEscapes",
+            path: "Sources"),
+        .executableTarget(name: "Link",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/Link"),
+        .executableTarget(name: "MoveCursorTo",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/MoveCursorTo"),
+        .executableTarget(name: "Image",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/Image"),
+        .executableTarget(name: "iTermAnnotation",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/iTermAnnotation"),
+        .executableTarget(name: "MoveCursorFor",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/MoveCursorFor"),
         .testTarget(
             name: "AnsiEscapesTests",
             dependencies: ["AnsiEscapes"]
