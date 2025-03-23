@@ -129,7 +129,14 @@ public func eraseLines(count: Int) -> String {
   return escapeCode
 }
 
-public func printLink(withText text: String, andUrl url: String) -> String {
+/// Creates a clickable link. For supported terminals see
+/// [1](https://emnudge.dev/notes/terminal-links/) and
+/// [2](https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda).
+/// - Parameters:
+///   - text: The text of the link
+///   - url: The URL of the link
+/// - Returns: The ANSI escape code.
+public func link(withText text: String, andUrl url: String) -> String {
   [
     ANSIEscapeCode.OSC,
     "8",
