@@ -12,18 +12,18 @@ extension ANSIEscapeCode {
       "\(ANSIEscapeCode.OSC)1337;CurrentDir=\(dir)\(ANSIEscapeCode.BEL)"
     }
     
-    public func annotation(message: String, options: iTermAnnotationOptions) -> String {
+    public static func annotation(message: String, options: iTermAnnotationOptions) -> String {
       let hiddenEscapeCode = options.isHidden ? "AddHiddenAnnotation=" : "AddAnnotation="
       var escapeCode = "\(ANSIEscapeCode.OSC)1337;\(hiddenEscapeCode)"
       
       var message = message
       message.replace("|", with: "")
       
-      if options.length != 0 {
+      if let length = options.length {
         if options.hasX() {
-          escapeCode += "\(message)|\(options.length!)|\(options.x!)|\(options.y!)"
+          escapeCode += "\(message)|\(length)|\(options.x!)|\(options.y!)"
         } else {
-          escapeCode += "\(options.length!)|\(message)"
+          escapeCode += "\(length)|\(message)"
         }
       } else {
         escapeCode += message
