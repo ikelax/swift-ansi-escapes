@@ -28,9 +28,12 @@ let package = Package(
         .executableTarget(name: "iTermAnnotation",
                 dependencies: ["AnsiEscapes"],
                 path: "Examples/iTermAnnotation"),
-        .executableTarget(name: "MoveCursorFor",
+        .executableTarget(name: "MoveCursorDirections",
                 dependencies: ["AnsiEscapes"],
-                path: "Examples/MoveCursorFor"),
+                path: "Examples/MoveCursorDirections"),
+        .executableTarget(name: "MoveCursorRelativeBy",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/MoveCursorRelativeBy"),
         .testTarget(
             name: "AnsiEscapesTests",
             dependencies: ["AnsiEscapes"]
