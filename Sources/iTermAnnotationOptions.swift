@@ -1,4 +1,4 @@
-/// The options for the [annotation feature](https://iterm2.com/documentation-escape-codes.html) in iTerm.
+/// The options for the [annotation feature](https://iterm2.com/documentation-escape-codes.html) in iTerm2.
 /// Scroll in the documentation to Annotations.
 public struct iTermAnnotationOptions {
   let length: Int?
@@ -6,20 +6,26 @@ public struct iTermAnnotationOptions {
   let y: Int?
   let isHidden: Bool
   
-  func hasX() -> Bool { x != nil }
+  public func hasX() -> Bool { x != nil }
   
   /// `x`, `y` and `length` must be defined when `x` or `y` is defined.
   /// - Parameters:
   ///   - x: The starting x-coordinate for the annotation. Defaults to the cursor's x-coordinate.
   ///   - y: The starting y-coordinate for the annotation. Defaults to the cursor's y-coordinate.
-  ///   - length: The number of cells to annotate. Defaults to the rest of the line beginning at the start of the annotation.
+  ///   - length: The number of cells to annotate. Defaults to the rest of the line beginning at the start of the annotation. `length` has to be positive.
   ///   - isHidden: Hidden (`true`) does not reveal the annotation window at the time the escape sequence is received, while not hidden (`false`) opens it immediately.
   public init(x: Int? = nil, y: Int? = nil, length: Int? = nil, isHidden: Bool = false) throws {
     let hasX = x != nil
     let hasY = y != nil
     
+    if let length = length {
+      if length <= 0 {
+        throw iTermAnnotationError.invalidLength
+      }
+    }
+    
     if (hasX || hasY) && !(hasX && hasY && length != nil) {
-      throw iTermAnnotationError.invalidOptions("`x`, `y` and `length` must be defined when `x` or `y` is defined")
+      throw iTermAnnotationError.xOrYImpliesXYAndLength
     }
     
     self.length = length
@@ -30,6 +36,8 @@ public struct iTermAnnotationOptions {
 }
 
 enum iTermAnnotationError: Error, Equatable {
-  /// This error is thrown when `x` or `y` were defined but at least one of `x`, `y` and `length` in ``iTermAnnotationOptions`` where `nil`.
-  case invalidOptions(String)
+  /// `x`, `y` and `length` in ``iTermAnnotationOptions`` must be defined when `x` or `y` is defined'.
+  case xOrYImpliesXYAndLength
+  /// `length` in ``iTermAnnotationOptions`` must be positive. Otherwise, the annotation is not displayed.
+  case invalidLength
 }

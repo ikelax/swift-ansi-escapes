@@ -24,11 +24,11 @@ let testCasesThrowsWithIsHidden: [OptionsWithIsHidden] = [
   (494, 6, nil, false),
   (3494, 4959, nil, true),
   (nil, 92, 19, false),
-  (nil, 0, 0, true),
+  (nil, 0, 9, true),
   (33, nil, 7, false),
   (34, nil, 6, true),
   (nil, 23, 1, false),
-  (nil, 1, 0, true),
+  (nil, 1, 1, true),
 ]
 
 @Suite("If isHidden is defined") struct InitWithIsHidden {
@@ -49,12 +49,22 @@ let testCasesThrowsWithIsHidden: [OptionsWithIsHidden] = [
   @Test("it throws when x or y is defined but not all of x, y and length are defined",
         arguments: testCasesThrowsWithIsHidden)
   func initThrows(_ options: OptionsWithIsHidden) {
-    #expect(
-      throws: iTermAnnotationError.invalidOptions(
-        "`x`, `y` and `length` must be defined when `x` or `y` is defined"
-      )
-    ) {
+    #expect(throws: iTermAnnotationError.xOrYImpliesXYAndLength) {
       try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length, isHidden: options.isHidden)
+    }
+  }
+  
+  @Suite("it throws when length is") struct lengthThrows {
+    @Test("0") func length0() {
+      #expect(throws: iTermAnnotationError.invalidLength) {
+        try iTermAnnotationOptions(length: 0, isHidden: false)
+      }
+    }
+    
+    @Test("negative") func lengthNegative() {
+      #expect(throws: iTermAnnotationError.invalidLength) {
+        try iTermAnnotationOptions(length: -1, isHidden: true)
+      }
     }
   }
 }
@@ -97,11 +107,22 @@ let testCasesThrowsWithoutIsHidden: [OptionsWithoutIsHidden] = [
         arguments: testCasesThrowsWithoutIsHidden)
   func initThrows(_ options: OptionsWithoutIsHidden) {
     #expect(
-      throws: iTermAnnotationError.invalidOptions(
-        "`x`, `y` and `length` must be defined when `x` or `y` is defined"
-      )
-    ) {
+      throws: iTermAnnotationError.xOrYImpliesXYAndLength) {
       try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length)
+    }
+  }
+  
+  @Suite("it throws when length is") struct lengthThrows {
+    @Test("0") func length0() {
+      #expect(throws: iTermAnnotationError.invalidLength) {
+        try iTermAnnotationOptions(length: 0)
+      }
+    }
+    
+    @Test("negative") func lengthNegative() {
+      #expect(throws: iTermAnnotationError.invalidLength) {
+        try iTermAnnotationOptions(length: -1)
+      }
     }
   }
 }
