@@ -1,4 +1,7 @@
 extension ANSIEscapeCode {
+  
+  /// iTerm supports proprietary escape codes. You can read more about them
+  /// in the [iTerm documentation](https://iterm2.com/documentation-escape-codes.html).
   public struct iTerm {
     private init() {}
     
