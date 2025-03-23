@@ -1,6 +1,6 @@
 import AnsiEscapes
 
-print(clearTerminal())
+print(ANSIEscapeCode.clearTerminal())
 
 // We want to print
 //
@@ -12,13 +12,13 @@ print(clearTerminal())
 //
 // x     x
 
-print(moveCursorTo(x: 0), terminator: "")
+print(ANSIEscapeCode.moveCursorTo(x: 0), terminator: "")
 print("x", terminator: "")
-print(moveCursorForward(for: 5), terminator: "")
+print(ANSIEscapeCode.moveCursorForward(for: 5), terminator: "")
 print("x", terminator: "")
 // We want to have 5 empty lines between the xs.
 // Therefore, we have to move down 6 lines.
-print(moveCursorDown(for: 6), terminator: "")
+print(ANSIEscapeCode.moveCursorDown(for: 6), terminator: "")
 // We moved 5 forward and printed 2 characters.
 // So, we have to move 7 backward.
 // We have to move backward first because moving
@@ -29,7 +29,7 @@ print(moveCursorDown(for: 6), terminator: "")
 // Thus, we first print the bottom left x
 // and after that move the cursor forward
 // and print the bottom right x.
-print(moveCursorBackward(for: 7), terminator: "")
+print(ANSIEscapeCode.moveCursorBackward(for: 7), terminator: "")
 print("x", terminator: "")
-print(moveCursorForward(for: 5), terminator: "")
+print(ANSIEscapeCode.moveCursorForward(for: 5), terminator: "")
 print("x")

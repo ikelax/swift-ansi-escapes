@@ -13,9 +13,9 @@ import AnsiEscapes
 //         8
 //          9
 
-print(clearTerminal())
+print(ANSIEscapeCode.clearTerminal())
 
 for i in 0..<10 {
-  print(moveCursorTo(x: i, y: i), terminator: "")
+  print(ANSIEscapeCode.moveCursorTo(x: i, y: i), terminator: "")
   print(String(i), terminator: "")
 }
