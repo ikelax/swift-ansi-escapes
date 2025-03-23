@@ -35,7 +35,7 @@ public enum ANSIEscapeCode {
   public static let CursorRestorePosition = isAppleTerminal() ? "\u{001B}8" : "\(ANSIEscapeCode.ESC)u"
 }
 
-/// Clear the whole terminal, including scrollback buffer. It does not clear just the visible part of it.
+/// Clears the whole terminal, including scrollback buffer. It does not clear just the visible part of it.
 /// - Returns: The ANSI escape code.
 public func clearTerminal() -> String {
   #if os(Windows)
@@ -64,8 +64,8 @@ public func moveCursorTo(x: Int, y: Int? = nil) -> String {
 
 /// Sets the position of the cursor relative to its current position.
 /// - Parameters:
-///   - x: The number of rows to move the cursor forward (positive) or backward (negative).
-///   - y: The number of lines to move the cursor up (negative) or down (positive).
+///   - x: The number of rows the cursor is moved forward (positive) or backward (negative).
+///   - y: The number of lines the cursor is moved up (negative) or down (positive).
 /// - Returns: The ANSI ecape code.
 public func moveCursorRelativeBy(x: Int, y: Int? = nil) -> String {
   var escapeCode = ""
@@ -88,28 +88,28 @@ public func moveCursorRelativeBy(x: Int, y: Int? = nil) -> String {
 }
 
 /// Moves the cursor up a specific amount of rows.
-/// - Parameter y: The number of rows to move the cursor up. Default is `1`.
+/// - Parameter y: The number of rows the cursor is moved up. Default is `1`.
 /// - Returns: The ANSI escape code.
 public func moveCursorUp(for y: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(y)A"
 }
 
 /// Moves the cursor down a specific amount of rows.
-/// - Parameter y: The number of rows to move the cursor down. Default is `1`.
+/// - Parameter y: The number of rows the cursor is moved down. Default is `1`.
 /// - Returns: The ANSI escape code.
 public func moveCursorDown(for y: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(y)B"
 }
 
 /// Moves the cursor forward a specific amount of columns.
-/// - Parameter x: The number of columns to move the cursor forward. Default is `1`.
+/// - Parameter x: The number of columns the cursor is moved forward. Default is `1`.
 /// - Returns: The ANSI escape code.
 public func moveCursorForward(for x: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(x)C"
 }
 
 /// Moves the cursor backward a specific amount of columns.
-/// - Parameter x: The number of columns to move the cursor backward. Default is `1`.
+/// - Parameter x: The number of columns the cursor is moved backward. Default is `1`.
 /// - Returns: The ANSI escape code.
 public func moveCursorBackward(for x: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(x)D"
