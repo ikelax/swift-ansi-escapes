@@ -23,7 +23,7 @@ import AnsiEscapes
       #expect(moveCursorRelativeBy(x: 0, y: -9000) == "\(ANSIEscapeCode.ESC)9000A")
     }
     
-    @Test("x = 0") func moveCursorRelativeByX0() {
+    @Test("x = 0") func moveCursorRelativeBy0() {
       #expect(moveCursorRelativeBy(x: 0) == "")
     }
   }
@@ -49,7 +49,7 @@ import AnsiEscapes
       #expect(moveCursorRelativeBy(x: 1, y: -7) == "\(ANSIEscapeCode.ESC)1C\(ANSIEscapeCode.ESC)7A")
     }
     
-    @Test("x = 1") func moveCursorRelativeByX1() {
+    @Test("x = 1") func moveCursorRelativeBy1() {
       #expect(moveCursorRelativeBy(x: 1) == "\(ANSIEscapeCode.ESC)1C")
     }
     
@@ -73,7 +73,7 @@ import AnsiEscapes
       #expect(moveCursorRelativeBy(x: 193, y: -81) == "\(ANSIEscapeCode.ESC)193C\(ANSIEscapeCode.ESC)81A")
     }
     
-    @Test("x = 50") func moveCursorRelativeByX50() {
+    @Test("x = 50") func moveCursorRelativeBy50() {
       #expect(moveCursorRelativeBy(x: 50) == "\(ANSIEscapeCode.ESC)50C")
     }
   }
@@ -95,11 +95,11 @@ import AnsiEscapes
       #expect(moveCursorRelativeBy(x: -1, y: -1) == "\(ANSIEscapeCode.ESC)1D\(ANSIEscapeCode.ESC)1A")
     }
     
-    @Test("(-1, -98)") func moveCursorRelativeByMinus1andMinus7() {
+    @Test("(-1, -98)") func moveCursorRelativeByMinus1andMinus98() {
       #expect(moveCursorRelativeBy(x: -1, y: -98) == "\(ANSIEscapeCode.ESC)1D\(ANSIEscapeCode.ESC)98A")
     }
     
-    @Test("x = -1") func moveCursorRelativeByXMinus1() {
+    @Test("x = -1") func moveCursorRelativeByMinus1() {
       #expect(moveCursorRelativeBy(x: -1) == "\(ANSIEscapeCode.ESC)1D")
     }
     
@@ -123,7 +123,7 @@ import AnsiEscapes
       #expect(moveCursorRelativeBy(x: -777, y: -13) == "\(ANSIEscapeCode.ESC)777D\(ANSIEscapeCode.ESC)13A")
     }
     
-    @Test("x = -3") func moveCursorRelativeByXMinus3() {
+    @Test("x = -3") func moveCursorRelativeByMinus3() {
       #expect(moveCursorRelativeBy(x: -3) == "\(ANSIEscapeCode.ESC)3D")
     }
   }
