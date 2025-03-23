@@ -3,38 +3,40 @@ func isAppleTerminal() -> Bool {
 }
 
 public enum ANSIEscapeCode {
-  static let ESC = "\u{001B}["
-  static let OSC = "\u{001B}]"
-  static let BEL = "\u{0007}"
-  static let SEP = ";"
+  public static let ESC = "\u{001B}["
+  public static let OSC = "\u{001B}]"
+  public static let BEL = "\u{0007}"
+  public static let SEP = ";"
   public static let EraseEndLine = ESC + "0K"
-  static let EraseStartLine = ESC + "1K"
+  public static let EraseStartLine = ESC + "1K"
   public static let EraseLine = ESC + "2K"
-  static let EraseDown = ESC + "J"
+  public static let EraseDown = ESC + "J"
   public static let EraseUp = ESC + "1J"
-  static let EraseScreen = ESC + "2J"
-  static let ScrollUp = ESC + "S"
-  static let ScrollDown = ESC + "T"
+  public static let EraseScreen = ESC + "2J"
+  public static let ScrollUp = ESC + "S"
+  public static let ScrollDown = ESC + "T"
   
-  static let CursorLeft = ESC + "G"
+  public static let CursorLeft = ESC + "G"
   
-  static let CursorGetPosition = ESC + "6n"
-  static let CursorNextLine = ESC + "E"
-  static let CursorPrevLine = ESC + "F"
-  static let CursorHide = ESC + "?25l"
-  static let CursorShow = ESC + "?25h"
+  public static let CursorGetPosition = ESC + "6n"
+  public static let CursorNextLine = ESC + "E"
+  public static let CursorPrevLine = ESC + "F"
+  public static let CursorHide = ESC + "?25l"
+  public static let CursorShow = ESC + "?25h"
   
-  static let EnterAlternativeScreen = ESC + "?1049h"
-  static let ExitAlternativeScreen = ESC + "?1049l"
+  public static let EnterAlternativeScreen = ESC + "?1049h"
+  public static let ExitAlternativeScreen = ESC + "?1049l"
 
   public static let Beep = BEL
   
-  static let ClearScreen = "\u{001B}c"
+  public static let ClearScreen = "\u{001B}c"
   
-  static let CursorSavePosition = isAppleTerminal() ? "\u{001B}7" : "\(ANSIEscapeCode.ESC)s"
-  static let CursorRestorePosition = isAppleTerminal() ? "\u{001B}8" : "\(ANSIEscapeCode.ESC)u"
+  public static let CursorSavePosition = isAppleTerminal() ? "\u{001B}7" : "\(ANSIEscapeCode.ESC)s"
+  public static let CursorRestorePosition = isAppleTerminal() ? "\u{001B}8" : "\(ANSIEscapeCode.ESC)u"
 }
 
+/// Clear the whole terminal, including scrollback buffer. It does not clear just the visible part of it.
+/// - Returns: The ANSI escape code.
 public func clearTerminal() -> String {
   #if os(Windows)
   "\(ANSIEscapeCodes.EraseScreen)\(ANSIEscapeCodes.ESC)0f"
@@ -47,15 +49,25 @@ public func clearTerminal() -> String {
   #endif
 }
 
+/// Sets the absolute position of the cursor. `x = 0` and `y = 0` is the top left of the terminal screen. Negative integers are treated as `0`.
+/// - Parameters:
+///   - x: The horizontal position of the cursor from left to right.
+///   - y: The vertical position of the cursor from top to bottom. If `y` is `nil`, it is set to `1`.
+/// - Returns: The ANSI escape code.
 public func moveCursorTo(x: Int, y: Int? = nil) -> String {
   if let y = y {
-    return "\(ANSIEscapeCode.ESC)\(y)\(ANSIEscapeCode.SEP)\(x)H"
+    return "\(ANSIEscapeCode.ESC)\(y + 1)\(ANSIEscapeCode.SEP)\(x + 1)H"
   }
   
   return "\(ANSIEscapeCode.ESC)\(x + 1)G"
 }
 
-public func moveCursorFor(x: Int, y: Int? = nil) -> String {
+/// Sets the position of the cursor relative to its current position.
+/// - Parameters:
+///   - x: The number of rows to move the cursor forward (positive) or backward (negative).
+///   - y: The number of lines to move the cursor up (negative) or down (positive).
+/// - Returns: The ANSI ecape code.
+public func moveCursorRelativeBy(x: Int, y: Int? = nil) -> String {
   var escapeCode = ""
   
   if x < 0 {
@@ -64,29 +76,41 @@ public func moveCursorFor(x: Int, y: Int? = nil) -> String {
     escapeCode = "\(ANSIEscapeCode.ESC)\(x)C"
   }
   
-  guard let y = y, y == 0 else {
+  guard let y = y else {
     return escapeCode
   }
   
   if y < 0 {
-    return escapeCode + "\(ANSIEscapeCode.ESC)\(-x)A"
+    return escapeCode + "\(ANSIEscapeCode.ESC)\(-y)A"
   }
   
-  return escapeCode + "\(ANSIEscapeCode.ESC)\(x)B"
+  return escapeCode + "\(ANSIEscapeCode.ESC)\(y)B"
 }
 
+/// Moves the cursor up a specific amount of rows.
+/// - Parameter y: The number of rows to move the cursor up. Default is `1`.
+/// - Returns: The ANSI escape code.
 public func moveCursorUp(for y: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(y)A"
 }
 
+/// Moves the cursor down a specific amount of rows.
+/// - Parameter y: The number of rows to move the cursor down. Default is `1`.
+/// - Returns: The ANSI escape code.
 public func moveCursorDown(for y: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(y)B"
 }
 
+/// Moves the cursor forward a specific amount of columns.
+/// - Parameter x: The number of columns to move the cursor forward. Default is `1`.
+/// - Returns: The ANSI escape code.
 public func moveCursorForward(for x: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(x)C"
 }
 
+/// Moves the cursor backward a specific amount of columns.
+/// - Parameter x: The number of columns to move the cursor backward. Default is `1`.
+/// - Returns: The ANSI escape code.
 public func moveCursorBackward(for x: Int = 1) -> String {
   "\(ANSIEscapeCode.ESC)\(x)D"
 }
