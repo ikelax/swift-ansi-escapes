@@ -13,7 +13,7 @@ public struct iTermAnnotationOptions {
   ///   - x: The starting x-coordinate for the annotation. Defaults to the cursor's x-coordinate.
   ///   - y: The starting y-coordinate for the annotation. Defaults to the cursor's y-coordinate.
   ///   - length: The number of cells to annotate. Defaults to the rest of the line beginning at the start of the annotation. `length` has to be positive.
-  ///   - isHidden: Hidden (`true`) does not reveal the annotation window at the time the escape sequence is received, while not hidden (`false`) opens it immediately.
+  ///   - isHidden: Controls whether to open the annotation windows immediately. The annotation can be revealed by the command `Reveal Annotation` in the context menu.
   public init(x: Int? = nil, y: Int? = nil, length: Int? = nil, isHidden: Bool = false) throws {
     let hasX = x != nil
     let hasY = y != nil

@@ -1,17 +1,22 @@
 extension ANSIEscapeCode {
   
-  /// iTerm supports proprietary escape codes. You can read more about them
-  /// in the [iTerm documentation](https://iterm2.com/documentation-escape-codes.html).
+  /// iTerm2 supports proprietary escape codes. You can read more about them
+  /// in the [iTerm2 documentation](https://iterm2.com/documentation-escape-codes.html).
   public struct iTerm {
     private init() {}
     
     /// Inform iTerm2 of the current directory to help semantic history.
     /// - Parameter dir: The current directory to inform to iTerm2.
-    /// - Returns: The ANSI escape code.
+    /// - Returns: The proprietary escape code supported by iTerm2.
     public static func informCurrentDir(_ dir: String) -> String {
       "\(ANSIEscapeCode.OSC)1337;CurrentDir=\(dir)\(ANSIEscapeCode.BEL)"
     }
     
+    /// Adds an annotation displayed in iTerm2.
+    /// - Parameters:
+    ///   - message: The message to attach to the annotation. The `|` character is disallowed and will be stripped.
+    ///   - options: Options for the annotation escape code. See also ``iTermAnnotationOptions``.
+    /// - Returns: The proprietary escape code supported by iTerm2.
     public static func annotation(message: String, options: iTermAnnotationOptions) -> String {
       let hiddenEscapeCode = options.isHidden ? "AddHiddenAnnotation=" : "AddAnnotation="
       var escapeCode = "\(ANSIEscapeCode.OSC)1337;\(hiddenEscapeCode)"
