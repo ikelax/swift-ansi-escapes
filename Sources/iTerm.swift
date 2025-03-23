@@ -2,6 +2,9 @@ extension ANSIEscapeCode {
   public struct iTerm {
     private init() {}
     
+    /// Inform iTerm2 of the current directory to help semantic history.
+    /// - Parameter dir: The current directory to inform to iTerm2.
+    /// - Returns: The ANSI escape code.
     public static func informCurrentDir(_ dir: String) -> String {
       "\(ANSIEscapeCode.OSC)1337;CurrentDir=\(dir)\(ANSIEscapeCode.BEL)"
     }
