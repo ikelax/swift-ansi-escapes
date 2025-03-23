@@ -161,33 +161,6 @@ public struct ImageOptions {
   let preverseAspectRatio: Bool
 }
 
-public func printImage(data: String, options: ImageOptions?) -> String {
-  var escapeCodePrefix = "\(ANSIEscapeCode.OSC)1337;File=inline=1"
-  let escapeCodeForImage = ":\(ANSIEscapeCode.BEL)"
-  
-  guard let options = options else {
-    return escapeCodePrefix + escapeCodeForImage
-  }
-  
-  if options.width != 0 {
-    escapeCodePrefix += ";width=\(options.width)"
-  }
-  
-  if options.height != 0 {
-    escapeCodePrefix += ";height=\(options.height)"
-  }
-  
-  if !options.preverseAspectRatio {
-    escapeCodePrefix += ";preserveAspectRatio=0"
-  }
-  
-  return escapeCodePrefix + escapeCodeForImage
-}
-
-public func setCwdiTerm(cwd: String) -> String {
-  "\(ANSIEscapeCode.OSC)50;CurrentDir=\(cwd)\(ANSIEscapeCode.BEL)"
-}
-
 public struct iTermAnnotationOptions {
   let length: Int?
   let x: Int?
@@ -213,24 +186,4 @@ public struct iTermAnnotationOptions {
     self.y = y
     self.isHidden = isHidden
   }
-}
-
-public func annotationiTerm(message: String, options: iTermAnnotationOptions) -> String {
-  let hiddenEscapeCode = options.isHidden ? "AddHiddenAnnotation=" : "AddAnnotation="
-  var escapeCode = "\(ANSIEscapeCode.OSC)1337;\(hiddenEscapeCode)"
-  
-  var message = message
-  message.replace("|", with: "")
-  
-  if options.length != 0 {
-    if options.hasX() {
-      escapeCode += "\(message)|\(options.length!)|\(options.x!)|\(options.y!)"
-    } else {
-      escapeCode += "\(options.length!)|\(message)"
-    }
-  } else {
-    escapeCode += message
-  }
-  
-  return escapeCode + ANSIEscapeCode.BEL
 }
