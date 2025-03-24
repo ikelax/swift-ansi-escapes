@@ -28,10 +28,16 @@ let testCases = [
   ("|n|o|t|i|c|i|a|s", try! iTermAnnotationOptions(length: 5, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=5|noticias\(ANSIEscapeCode.BEL)"),
   
   // x: i, y: j, length: k, isHidden: false
-  // ("", try! iTermAnnotationOptions(x: 1, y: 2, length: 10), ""),
-  // ("", try! iTermAnnotationOptions(x: 3, y: 5, length: 10, isHidden: true), ""),
+  ("", try! iTermAnnotationOptions(x: 1, y: 2, length: 3), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=|3|1|2\(ANSIEscapeCode.BEL)"),
+  ("|", try! iTermAnnotationOptions(x: 17, y: 19, length: 23), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=|23|17|19\(ANSIEscapeCode.BEL)"),
+  ("tin nhắn", try! iTermAnnotationOptions(x: 0, y: 0, length: 8), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=tin nhắn|8|0|0\(ANSIEscapeCode.BEL)"),
+  ("tin||nhắn |:)|", try! iTermAnnotationOptions(x: 1, y: 0, length: 1200), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=tinnhắn :)|1200|1|0\(ANSIEscapeCode.BEL)"),
   
   // x: i, y: j, length: k, isHidden: true
+  ("", try! iTermAnnotationOptions(x: 0, y: 1, length: 2, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=|2|0|1\(ANSIEscapeCode.BEL)"),
+  ("| |", try! iTermAnnotationOptions(x: 5, y: 15, length: 25, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation= |25|5|15\(ANSIEscapeCode.BEL)"),
+  ("(nachricht)", try! iTermAnnotationOptions(x: 100, y: 1000, length: 10_000, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=(nachricht)|10000|100|1000\(ANSIEscapeCode.BEL)"),
+  ("nach | richt", try! iTermAnnotationOptions(x: 64, y: 32, length: 16, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=nach  richt|16|64|32\(ANSIEscapeCode.BEL)"),
 ]
 
 @Test("It should generate the correct escape code for annotations: ", arguments: testCases)
