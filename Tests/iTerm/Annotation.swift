@@ -22,7 +22,10 @@ let testCases = [
   ("|message|", try! iTermAnnotationOptions(length: 4), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=4|message\(ANSIEscapeCode.BEL)"),
   
   // length: k, isHidden: true
-  // ("", try! iTermAnnotationOptions(length: 10, isHidden: true), ""),
+  ("", try! iTermAnnotationOptions(length: 3, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=3|\(ANSIEscapeCode.BEL)"),
+  ("|||||||", try! iTermAnnotationOptions(length: 42, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=42|\(ANSIEscapeCode.BEL)"),
+  ("N0ti*ciaS", try! iTermAnnotationOptions(length: 7, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=7|N0ti*ciaS\(ANSIEscapeCode.BEL)"),
+  ("|n|o|t|i|c|i|a|s", try! iTermAnnotationOptions(length: 5, isHidden: true), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddHiddenAnnotation=5|noticias\(ANSIEscapeCode.BEL)"),
   
   // x: i, y: j, length: k, isHidden: false
   // ("", try! iTermAnnotationOptions(x: 1, y: 2, length: 10), ""),
