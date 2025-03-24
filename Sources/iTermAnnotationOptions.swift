@@ -1,6 +1,6 @@
 /// The options for the [annotation feature](https://iterm2.com/documentation-escape-codes.html) in iTerm2.
 /// Scroll in the documentation to Annotations.
-public struct iTermAnnotationOptions {
+public struct iTermAnnotationOptions: Sendable {
   let length: Int?
   let x: Int?
   let y: Int?
