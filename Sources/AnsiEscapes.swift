@@ -7,28 +7,47 @@ public struct ANSIEscapeCode {
   public static let OSC = "\u{001B}]"
   public static let BEL = "\u{0007}"
   public static let SEP = ";"
-  public static let EraseEndLine = ESC + "0K"
+  
+  /// Erases from the current cursor position to the start of the current line.
   public static let EraseStartLine = ESC + "1K"
+  /// Erases from the current cursor position to the end of the current line.
+  public static let EraseEndLine = ESC + "0K"
+  /// Erases the entire current line.
   public static let EraseLine = ESC + "2K"
+  /// Erases the screen from the current line down to the bottom of the screen.
   public static let EraseDown = ESC + "J"
+  /// Erases the screen from the current line up to the top of the screen.
   public static let EraseUp = ESC + "1J"
+  /// Erases the screen and moves the cursor to the top left position.
   public static let EraseScreen = ESC + "2J"
+  
+  /// Scrolls the display up by one line.
   public static let ScrollUp = ESC + "S"
+  /// Scrolls the display down by one line.
   public static let ScrollDown = ESC + "T"
   
-  public static let CursorLeft = ESC + "G"
-  
+  /// Get the cursor's position.
   public static let CursorGetPosition = ESC + "6n"
+  /// Moves the cursor to the left side.
+  public static let CursorLeft = ESC + "G"
+  /// Moves the cursor to the next line.
   public static let CursorNextLine = ESC + "E"
+  /// Moves the cursor to the previous line.
   public static let CursorPrevLine = ESC + "F"
-  public static let CursorHide = ESC + "?25l"
+  /// Shows the cursor.
   public static let CursorShow = ESC + "?25h"
+  /// Hides the cursor.
+  public static let CursorHide = ESC + "?25l"
   
+  /// Enters the [alternative screen](https://terminalguide.namepad.de/mode/p47/).
   public static let EnterAlternativeScreen = ESC + "?1049h"
+  /// Exits the [alternative screen](https://terminalguide.namepad.de/mode/p47/), assuming `EnterAlternativeScreen` was called before.
   public static let ExitAlternativeScreen = ESC + "?1049l"
-
+  
+  /// Outputs a beeping sound.
   public static let Beep = BEL
   
+  /// Clears the terminal screen.
   public static let ClearScreen = "\u{001B}c"
   
   public static let CursorSavePosition = isAppleTerminal() ? "\u{001B}7" : "\(ANSIEscapeCode.ESC)s"
