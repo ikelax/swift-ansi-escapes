@@ -8,7 +8,7 @@ extension ANSIEscapeCode {
     /// Inform iTerm2 of the current directory to help semantic history.
     /// - Parameter dir: The current directory to inform to iTerm2.
     /// - Returns: The proprietary escape code supported by iTerm2.
-    public static func informCurrentDir(_ dir: String) -> String {
+    public static func setCurrentDir(_ dir: String) -> String {
       "\(ANSIEscapeCode.OSC)1337;CurrentDir=\(dir)\(ANSIEscapeCode.BEL)"
     }
     
