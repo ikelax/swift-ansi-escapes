@@ -1,6 +1,4 @@
-func isAppleTerminal() -> Bool {
-  true
-}
+import Foundation
 
 public struct ANSIEscapeCode {
   public static let ESC = "\u{001B}["
@@ -50,23 +48,44 @@ public struct ANSIEscapeCode {
   /// Clears the terminal screen.
   public static let ClearScreen = "\u{001B}c"
   
-  public static let CursorSavePosition = isAppleTerminal() ? "\u{001B}7" : "\(ANSIEscapeCode.ESC)s"
-  public static let CursorRestorePosition = isAppleTerminal() ? "\u{001B}8" : "\(ANSIEscapeCode.ESC)u"
+  /// Saves the cursor's position.
+  /// - Parameter terminal: The terminal for which the escape code is. Defaults to the environment variable `TERM_PROGRAM`.
+  /// - Returns: The ANSI escape code.
+  public static func saveCursorPosition(inTerminal terminal: String? = ProcessInfo.processInfo.environment["TERM_PROGRAM"]) -> String {
+    if terminal == "Apple_Terminal" {
+      "\u{001B}7"
+    } else {
+      "\(ANSIEscapeCode.ESC)s"
+    }
+  }
+  
+  /// Restores the saved cursor position.
+  /// - Parameter terminal: The terminal for which the escape code is. Defaults to the environment variable `TERM_PROGRAM`.
+  /// - Returns: The ANSI escape code.
+  public static func restoreCursorPosition(inTerminal terminal: String? = ProcessInfo.processInfo.environment["TERM_PROGRAM"]) -> String {
+    if terminal == "Apple_Terminal" {
+      "\u{001B}8"
+    } else {
+      "\(ANSIEscapeCode.ESC)u"
+    }
+  }
   
   private init() {}
   
   /// Clears the whole terminal, including scrollback buffer. It does not clear just the visible part of it.
+  /// - Parameters:
+  ///   - onWindows: Whether the escape code is for Windows. Defaults to `false`.
   /// - Returns: The ANSI escape code.
-  public static func clearTerminal() -> String {
-    #if os(Windows)
-    "\(ANSIEscapeCodes.EraseScreen)\(ANSIEscapeCodes.ESC)0f"
-    #else
-    // 1. Erases the screen (Only done in case `2` is not supported)
-    // 2. Erases the whole screen including scrollback buffer
-    // 3. Moves cursor to the top-left position
-    // More info: https://www.real-world-systems.com/docs/ANSIcode.html
-    "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)3J\(ANSIEscapeCode.ESC)H"
-    #endif
+  public static func clearTerminal(onWindows: Bool = false) -> String {
+    if (onWindows) {
+      "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)0f"
+    } else {
+      // 1. Erases the screen (Only done in case `2` is not supported)
+      // 2. Erases the whole screen including scrollback buffer
+      // 3. Moves cursor to the top-left position
+      // More info: https://www.real-world-systems.com/docs/ANSIcode.html
+      "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)3J\(ANSIEscapeCode.ESC)H"
+    }
   }
   
   /// Sets the absolute position of the cursor. `x = 0` and `y = 0` is the top left of the terminal screen. Negative integers are treated as `0`.
