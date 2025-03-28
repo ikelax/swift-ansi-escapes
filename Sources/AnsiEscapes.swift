@@ -177,20 +177,25 @@ public struct ANSIEscapeCode {
       ANSIEscapeCode.BEL,
     ].joined(separator: "")
   }
-}
-
-public func eraseLines(count: Int) -> String {
-  var escapeCode = ""
   
-  for i in 0..<count {
-    escapeCode += ANSIEscapeCode.EraseLine + (i < count - 1 ? ANSIEscapeCode.moveCursorUp() : "")
+  public static func eraseLines(count: Int) -> String {
+    var escapeCode = ""
+    
+    for i in 0..<count {
+      escapeCode += ANSIEscapeCode.EraseLine + (i < count - 1 ? ANSIEscapeCode.moveCursorUp() : "")
+    }
+    
+    // This is required to move the cursor
+    // after the erasion of the lines to the
+    // beginning of the line. Otherwise, it
+    // is at the position it was before the
+    // first line was deleted.
+    if count > 0 {
+      escapeCode += ANSIEscapeCode.CursorLeft
+    }
+    
+    return escapeCode
   }
-  
-  if count != 0 {
-    escapeCode += ANSIEscapeCode.CursorLeft
-  }
-  
-  return escapeCode
 }
 
 public struct ImageOptions {

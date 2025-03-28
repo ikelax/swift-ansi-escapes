@@ -34,6 +34,9 @@ let package = Package(
         .executableTarget(name: "MoveCursorRelativeBy",
                 dependencies: ["AnsiEscapes"],
                 path: "Examples/MoveCursorRelativeBy"),
+        .executableTarget(name: "EraseLines",
+                dependencies: ["AnsiEscapes"],
+                path: "Examples/EraseLines"),
         .testTarget(
             name: "AnsiEscapesTests",
             dependencies: ["AnsiEscapes"]
