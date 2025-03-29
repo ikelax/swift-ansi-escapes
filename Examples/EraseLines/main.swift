@@ -6,7 +6,7 @@ for i in 1..<10 {
   print(i)
 }
 
-print("10", terminator: "")
+print(10, terminator: "")
 
 print(ANSIEscapeCode.eraseLines(count: 5), terminator: "")
 
@@ -22,7 +22,7 @@ for i in 1..<10 {
   print(i)
 }
 
-print("10")
+print(10)
 
 print(ANSIEscapeCode.eraseLines(count: 5), terminator: "")
 
