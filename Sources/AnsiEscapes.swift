@@ -183,6 +183,10 @@ public struct ANSIEscapeCode {
   /// - Parameter count: The number of lines which are erased.
   /// - Returns: The ANSI escape code.
   public static func eraseLines(count: Int) -> String {
+    guard count >= 0 else {
+      return ""
+    }
+    
     var escapeCode = ""
     
     for i in 0..<count {
