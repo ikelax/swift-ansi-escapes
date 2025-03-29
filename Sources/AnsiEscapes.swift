@@ -178,8 +178,9 @@ public struct ANSIEscapeCode {
     ].joined(separator: "")
   }
   
-  /// Erase from the current cursor position up the specified amount of lines.
+  /// Erases from the current cursor position up the specified amount of lines.
   /// The cursor is moved to the left after the erasion.
+  /// If `count` is zero or negative, it returns an empty string.
   /// - Parameter count: The number of lines which are erased.
   /// - Returns: The ANSI escape code.
   public static func eraseLines(count: Int) -> String {
