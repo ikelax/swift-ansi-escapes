@@ -1,8 +1,8 @@
 import Testing
 import AnsiEscapes
 
-@Suite("Erases") struct EraseLines {
-  @Test("one line and moves the cursor to the left") func one() {
+@Suite("Moves the cursor to the left after erasing") struct EraseLines {
+  @Test("one line") func one() {
     #expect(ANSIEscapeCode.eraseLines(count: 1) ==
             """
             \(ANSIEscapeCode.EraseLine)\
@@ -10,7 +10,7 @@ import AnsiEscapes
             """)
   }
   
-  @Test("three lines and moves the cursor to the left") func three() {
+  @Test("three lines") func three() {
     #expect(ANSIEscapeCode.eraseLines(count: 3) ==
             """
             \(ANSIEscapeCode.EraseLine)\
@@ -22,7 +22,7 @@ import AnsiEscapes
             """)
   }
   
-  @Test("twelve lines and moves the cursor to the left") func twelve() {
+  @Test("twelve lines") func twelve() {
     #expect(ANSIEscapeCode.eraseLines(count: 12) ==
             """
             \(ANSIEscapeCode.EraseLine)\
@@ -53,7 +53,7 @@ import AnsiEscapes
   }
 }
 
-@Test("Does not erase lines and move the cursor to the left", arguments: -100...0)
+@Test("Does not erase lines and does not move the cursor to the left", arguments: -100...0)
 func doesNotEraseLines(_ count: Int) {
   #expect(ANSIEscapeCode.eraseLines(count: count) == "")
 }
