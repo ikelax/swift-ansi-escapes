@@ -206,9 +206,3 @@ public struct ANSIEscapeCode {
     return escapeCode
   }
 }
-
-public struct ImageOptions {
-  let height: Int
-  let width: Int
-  let preverseAspectRatio: Bool
-}
