@@ -1,6 +1,6 @@
 /// The options for the [image display feature](https://iterm2.com/documentation-images.html) in iTerm2.
 /// Currently, not the whole feature is supported.
-public struct ImageOptions {
+public struct ImageOptions: Sendable {
   /// Height to render in character cells.
   let height: Int
   /// Width to render in character cells.

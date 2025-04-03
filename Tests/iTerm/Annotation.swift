@@ -2,7 +2,7 @@ import Testing
 import AnsiEscapes
 
 // | is disallowed and therefore stripped.
-let testCases = [
+private let testCases = [
   // isHidden: false
   ("", try! iTermAnnotationOptions(), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=\(ANSIEscapeCode.BEL)"),
   ("|", try! iTermAnnotationOptions(), "\(ANSIEscapeCode.OSC)1337\(ANSIEscapeCode.SEP)AddAnnotation=\(ANSIEscapeCode.BEL)"),
