@@ -1,3 +1,5 @@
+import Foundation
+
 extension ANSIEscapeCode {
   
   /// iTerm2 supports proprietary escape codes. You can read more about them
@@ -36,28 +38,37 @@ extension ANSIEscapeCode {
       
       return escapeCode + ANSIEscapeCode.BEL
     }
-    
-    public func image(data: String, options: ImageOptions?) -> String {
-      var escapeCodePrefix = "\(ANSIEscapeCode.OSC)1337;File=inline=1"
-      let escapeCodeForImage = ":\(ANSIEscapeCode.BEL)"
-      
-      guard let options = options else {
-        return escapeCodePrefix + escapeCodeForImage
+
+    /// Displays an image in iTerm2.
+    /// - Parameters:
+    ///   - path: The image's path.
+    ///   - options: Options for the image display escape code. See also ``ImageOptions``.
+    /// - Returns: The proprietary escape code supported by iTerm2.
+    public static func image(path: String, options: ImageOptions? = nil) -> String? {
+      guard let image = try? Data(contentsOf: URL(filePath: path)) else {
+        return nil
       }
-      
-      if options.width != 0 {
+
+      var escapeCodePrefix = "\(ANSIEscapeCode.OSC)1337;File=inline=1"
+      let escapeCodeImage = ":\(image.base64EncodedString())\(ANSIEscapeCode.BEL)"
+
+      guard let options = options else {
+        return escapeCodePrefix + escapeCodeImage
+      }
+
+      if options.width > 0 {
         escapeCodePrefix += ";width=\(options.width)"
       }
-      
-      if options.height != 0 {
+
+      if options.height > 0 {
         escapeCodePrefix += ";height=\(options.height)"
       }
-      
+
       if !options.preverseAspectRatio {
         escapeCodePrefix += ";preserveAspectRatio=0"
       }
-      
-      return escapeCodePrefix + escapeCodeForImage
+
+      return escapeCodePrefix + escapeCodeImage
     }
   }
 

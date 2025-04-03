@@ -24,7 +24,8 @@ let package = Package(
                 path: "Examples/MoveCursorTo"),
         .executableTarget(name: "Image",
                 dependencies: ["AnsiEscapes"],
-                path: "Examples/Image"),
+                path: "Examples/Image",
+                resources: [.copy("image.webp")]),
         .executableTarget(name: "iTermAnnotation",
                 dependencies: ["AnsiEscapes"],
                 path: "Examples/iTermAnnotation"),
@@ -39,7 +40,8 @@ let package = Package(
                 path: "Examples/EraseLines"),
         .testTarget(
             name: "AnsiEscapesTests",
-            dependencies: ["AnsiEscapes"]
+            dependencies: ["AnsiEscapes"],
+            resources: [.copy("Fixtures")]
         ),
     ]
 )
