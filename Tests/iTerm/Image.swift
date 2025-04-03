@@ -21,7 +21,7 @@ private let testCases: [(ImageOptions?, String)] = [
   
   // Whether the string for the parameter is added is a binary choice.
   // Since we have 3 parameters, there are 8 combinations.
-  // The above tests cover the combination where all are not added.
+  // The above tests cover the combination where nothing is added.
   
   // Cases where height and width are added.
   (ImageOptions(height: 1, width: 1, preverseAspectRatio: true), "\(escapeCodePrefix);width=1;height=1\(escapeCodeImage)"),
