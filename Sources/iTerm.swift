@@ -64,7 +64,7 @@ extension ANSIEscapeCode {
         escapeCodePrefix += ";height=\(options.height)"
       }
 
-      if !options.preverseAspectRatio {
+      if !options.preserveAspectRatio {
         escapeCodePrefix += ";preserveAspectRatio=0"
       }
 

@@ -7,11 +7,11 @@ public struct ImageOptions: Sendable {
   let width: Int
   /// If set to `false`, then the image's inherent aspect ratio will not be respected.
   /// Otherwise, it will fill the specified `width` and `height` as much as possible without stretching.
-  let preverseAspectRatio: Bool
+  let preserveAspectRatio: Bool
 
-  public init(height: Int, width: Int, preverseAspectRatio: Bool) {
+  public init(height: Int, width: Int, preserveAspectRatio: Bool) {
     self.height = height
     self.width = width
-    self.preverseAspectRatio = preverseAspectRatio
+    self.preserveAspectRatio = preserveAspectRatio
   }
 }

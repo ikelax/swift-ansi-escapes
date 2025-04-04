@@ -105,7 +105,7 @@ public struct ANSIEscapeCode {
   /// - Parameters:
   ///   - x: The number of rows the cursor is moved forward (positive) or backward (negative).
   ///   - y: The number of lines the cursor is moved up (negative) or down (positive).
-  /// - Returns: The ANSI ecape code.
+  /// - Returns: The ANSI escape code.
   public static func moveCursorRelativeBy(x: Int, y: Int? = nil) -> String {
     var escapeCode = ""
     
