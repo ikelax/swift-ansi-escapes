@@ -1,4 +1,5 @@
 import Testing
+
 @testable import AnsiEscapes
 
 let testCasesInitWithIsHidden = [
@@ -36,31 +37,37 @@ let testCasesThrowsWithIsHidden: [OptionsWithIsHidden] = [
     @Test("", arguments: testCasesInitWithIsHidden)
     func initWithIsHidden(_ options: OptionsWithIsHidden) {
       #expect(throws: Never.self) {
-        try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length, isHidden: options.isHidden)
+        try iTermAnnotationOptions(
+          x: options.x, y: options.y, length: options.length, isHidden: options.isHidden)
       }
     }
-    
+
     @Test("with isHidden set to the passed argument", arguments: testCasesInitWithIsHidden)
     func isHiddenSetToArgument(_ options: OptionsWithIsHidden) {
-      #expect(try! iTermAnnotationOptions(x: options.x, y: options.y, length: options.length, isHidden: options.isHidden).isHidden == options.isHidden)
+      #expect(
+        try! iTermAnnotationOptions(
+          x: options.x, y: options.y, length: options.length, isHidden: options.isHidden
+        ).isHidden == options.isHidden)
     }
   }
-  
-  @Test("it throws when x or y is defined but not all of x, y and length are defined",
-        arguments: testCasesThrowsWithIsHidden)
+
+  @Test(
+    "it throws when x or y is defined but not all of x, y and length are defined",
+    arguments: testCasesThrowsWithIsHidden)
   func initThrows(_ options: OptionsWithIsHidden) {
     #expect(throws: iTermAnnotationError.xOrYImpliesXYAndLength) {
-      try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length, isHidden: options.isHidden)
+      try iTermAnnotationOptions(
+        x: options.x, y: options.y, length: options.length, isHidden: options.isHidden)
     }
   }
-  
+
   @Suite("it throws when length is") struct lengthThrows {
     @Test("0") func length0() {
       #expect(throws: iTermAnnotationError.invalidLength) {
         try iTermAnnotationOptions(length: 0, isHidden: false)
       }
     }
-    
+
     @Test("negative") func lengthNegative() {
       #expect(throws: iTermAnnotationError.invalidLength) {
         try iTermAnnotationOptions(length: -1, isHidden: true)
@@ -96,29 +103,33 @@ let testCasesThrowsWithoutIsHidden: [OptionsWithoutIsHidden] = [
         try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length)
       }
     }
-    
+
     @Test("with isHidden = false by default", arguments: testCasesInitWithoutIsHidden)
     func isHiddenHasDefaultFalse(_ options: OptionsWithoutIsHidden) {
-      #expect(try! iTermAnnotationOptions(x: options.x, y: options.y, length: options.length).isHidden == false)
+      #expect(
+        try! iTermAnnotationOptions(x: options.x, y: options.y, length: options.length).isHidden
+          == false)
     }
   }
-  
-  @Test("it throws when x or y is defined but not all of x, y and length are defined",
-        arguments: testCasesThrowsWithoutIsHidden)
+
+  @Test(
+    "it throws when x or y is defined but not all of x, y and length are defined",
+    arguments: testCasesThrowsWithoutIsHidden)
   func initThrows(_ options: OptionsWithoutIsHidden) {
     #expect(
-      throws: iTermAnnotationError.xOrYImpliesXYAndLength) {
+      throws: iTermAnnotationError.xOrYImpliesXYAndLength
+    ) {
       try iTermAnnotationOptions(x: options.x, y: options.y, length: options.length)
     }
   }
-  
+
   @Suite("it throws when length is") struct lengthThrows {
     @Test("0") func length0() {
       #expect(throws: iTermAnnotationError.invalidLength) {
         try iTermAnnotationOptions(length: 0)
       }
     }
-    
+
     @Test("negative") func lengthNegative() {
       #expect(throws: iTermAnnotationError.invalidLength) {
         try iTermAnnotationOptions(length: -1)

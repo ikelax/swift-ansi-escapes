@@ -1,12 +1,16 @@
-import Testing
 import AnsiEscapes
+import Testing
 
 @Suite("Clears the terminal") struct ClearTerminal {
   @Test("on Windows") func windows() {
-    #expect(ANSIEscapeCode.clearTerminal(onWindows: true) == "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)0f")
+    #expect(
+      ANSIEscapeCode.clearTerminal(onWindows: true)
+        == "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)0f")
   }
-  
+
   @Test("on macOS or Linux") func macOSOrLinux() {
-    #expect(ANSIEscapeCode.clearTerminal() == "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)3J\(ANSIEscapeCode.ESC)H")
+    #expect(
+      ANSIEscapeCode.clearTerminal()
+        == "\(ANSIEscapeCode.EraseScreen)\(ANSIEscapeCode.ESC)3J\(ANSIEscapeCode.ESC)H")
   }
 }

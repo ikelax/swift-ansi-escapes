@@ -1,55 +1,55 @@
-import Testing
 import AnsiEscapes
+import Testing
 
 @Suite("Moves the cursor to the left after erasing") struct EraseLines {
   @Test("one line") func one() {
-    #expect(ANSIEscapeCode.eraseLines(count: 1) ==
-            """
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.CursorLeft)
-            """)
+    #expect(
+      ANSIEscapeCode.eraseLines(count: 1) == """
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.CursorLeft)
+        """)
   }
-  
+
   @Test("three lines") func three() {
-    #expect(ANSIEscapeCode.eraseLines(count: 3) ==
-            """
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.CursorLeft)
-            """)
+    #expect(
+      ANSIEscapeCode.eraseLines(count: 3) == """
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.CursorLeft)
+        """)
   }
-  
+
   @Test("twelve lines") func twelve() {
-    #expect(ANSIEscapeCode.eraseLines(count: 12) ==
-            """
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.moveCursorUp())\
-            \(ANSIEscapeCode.EraseLine)\
-            \(ANSIEscapeCode.CursorLeft)
-            """)
+    #expect(
+      ANSIEscapeCode.eraseLines(count: 12) == """
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.moveCursorUp())\
+        \(ANSIEscapeCode.EraseLine)\
+        \(ANSIEscapeCode.CursorLeft)
+        """)
   }
 }
 
