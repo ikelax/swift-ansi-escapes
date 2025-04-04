@@ -15,28 +15,28 @@ private let testCases: [(ImageOptions?, String)] = [
   
   // For non-positive widths and heights and
   // preserveAspectRatio = true nothing is added.
-  (ImageOptions(height: -1, width: -100, preverseAspectRatio: true), escapeCodeWithoutOptions),
-  (ImageOptions(height: 0, width: -5, preverseAspectRatio: true), escapeCodeWithoutOptions),
-  (ImageOptions(height: -27, width: 0, preverseAspectRatio: true), escapeCodeWithoutOptions),
+  (ImageOptions(height: -1, width: -100, preserveAspectRatio: true), escapeCodeWithoutOptions),
+  (ImageOptions(height: 0, width: -5, preserveAspectRatio: true), escapeCodeWithoutOptions),
+  (ImageOptions(height: -27, width: 0, preserveAspectRatio: true), escapeCodeWithoutOptions),
   
   // Whether the string for the parameter is added is a binary choice.
   // Since we have 3 parameters, there are 8 combinations.
   // The above tests cover the combination where nothing is added.
   
   // Cases where height and width are added.
-  (ImageOptions(height: 1, width: 1, preverseAspectRatio: true), "\(escapeCodePrefix);width=1;height=1\(escapeCodeImage)"),
-  (ImageOptions(height: 88, width: 190190, preverseAspectRatio: false), "\(escapeCodePrefix);width=190190;height=88;preserveAspectRatio=0\(escapeCodeImage)"),
+  (ImageOptions(height: 1, width: 1, preserveAspectRatio: true), "\(escapeCodePrefix);width=1;height=1\(escapeCodeImage)"),
+  (ImageOptions(height: 88, width: 190190, preserveAspectRatio: false), "\(escapeCodePrefix);width=190190;height=88;preserveAspectRatio=0\(escapeCodeImage)"),
   
   // Cases where height is added and width is not added.
-  (ImageOptions(height: 64, width: -256, preverseAspectRatio: true), "\(escapeCodePrefix);height=64\(escapeCodeImage)"),
-  (ImageOptions(height: 1, width: -2, preverseAspectRatio: false), "\(escapeCodePrefix);height=1;preserveAspectRatio=0\(escapeCodeImage)"),
+  (ImageOptions(height: 64, width: -256, preserveAspectRatio: true), "\(escapeCodePrefix);height=64\(escapeCodeImage)"),
+  (ImageOptions(height: 1, width: -2, preserveAspectRatio: false), "\(escapeCodePrefix);height=1;preserveAspectRatio=0\(escapeCodeImage)"),
   
   // Cases where height is not added and width is added.
-  (ImageOptions(height: -3, width: 4, preverseAspectRatio: true), "\(escapeCodePrefix);width=4\(escapeCodeImage)"),
-  (ImageOptions(height: -801, width: 739443234, preverseAspectRatio: false), "\(escapeCodePrefix);width=739443234;preserveAspectRatio=0\(escapeCodeImage)"),
+  (ImageOptions(height: -3, width: 4, preserveAspectRatio: true), "\(escapeCodePrefix);width=4\(escapeCodeImage)"),
+  (ImageOptions(height: -801, width: 739443234, preserveAspectRatio: false), "\(escapeCodePrefix);width=739443234;preserveAspectRatio=0\(escapeCodeImage)"),
   
   // Cases where height and width are not added.
-  (ImageOptions(height: -1, width: -1, preverseAspectRatio: false), "\(escapeCodePrefix);preserveAspectRatio=0\(escapeCodeImage)"),
+  (ImageOptions(height: -1, width: -1, preserveAspectRatio: false), "\(escapeCodePrefix);preserveAspectRatio=0\(escapeCodeImage)"),
 ]
 
 @Test("It should generate the correct escape code for displaying an image with", arguments: testCases)
