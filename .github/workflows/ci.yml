@@ -20,10 +20,6 @@ jobs:
     runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
-      - name: Xcode Select Version
-        uses: mobiledevops/xcode-select-version-action@v1
-        with:
-          xcode-select-version: 16.1
       - name: Test
         run: set -o pipefail && swift test | xcbeautify --renderer github-actions
   test-ubuntu:
@@ -46,5 +42,9 @@ jobs:
     runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
+      - name: Xcode Select Version
+        uses: mobiledevops/xcode-select-version-action@v1
+        with:
+          xcode-select-version: 16.1
       - name: Format and lint
         run: swift format lint -r -p -s .
