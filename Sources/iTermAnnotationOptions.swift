@@ -5,9 +5,9 @@ public struct iTermAnnotationOptions: Sendable {
   let x: Int?
   let y: Int?
   let isHidden: Bool
-  
+
   public func hasX() -> Bool { x != nil }
-  
+
   /// `x`, `y` and `length` must be defined when `x` or `y` is defined.
   /// - Parameters:
   ///   - x: The starting x-coordinate for the annotation. Defaults to the cursor's x-coordinate.
@@ -17,17 +17,17 @@ public struct iTermAnnotationOptions: Sendable {
   public init(x: Int? = nil, y: Int? = nil, length: Int? = nil, isHidden: Bool = false) throws {
     let hasX = x != nil
     let hasY = y != nil
-    
+
     if let length = length {
       if length <= 0 {
         throw iTermAnnotationError.invalidLength
       }
     }
-    
+
     if (hasX || hasY) && !(hasX && hasY && length != nil) {
       throw iTermAnnotationError.xOrYImpliesXYAndLength
     }
-    
+
     self.length = length
     self.x = x
     self.y = y
