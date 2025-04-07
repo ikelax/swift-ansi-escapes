@@ -5,10 +5,6 @@
 Port of [ansi-escapes](https://github.com/sindresorhus/ansi-escapes)
 from [sindresorhus](https://github.com/sindresorhus) to Swift.
 
-Most of the escape codes are taken from
-[here](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm).
-But currently, not all of them are supported.
-
 ## Installation
 
 You can install swift-ansi-escapes using the Swift Package Manager. To
@@ -22,7 +18,7 @@ You can also add it to a standalone Swift package by adding it to your
 let package = Package(
     name: "MyPackage",
     dependencies: [
-        .package(url: "https://github.com/ikelax/swift-ansi-escapes.git", from: "TODO")
+        .package(url: "https://github.com/ikelax/swift-ansi-escapes.git", from: "0.1.0")
     ],
     targets: [
         .target(
@@ -33,6 +29,8 @@ let package = Package(
 ```
 
 ## Usage
+
+I will add documentation in a future PR.
 
 ## License
 
